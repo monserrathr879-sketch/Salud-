@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encuesta de Salud</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background-color: #f0f8ff;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        form {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 25px;
+        }
+        .campo {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #34495e;
+        }
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        input[type="number"]:focus,
+        select:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        /* Estilo para la barra de dolor */
+        input[type="range"] {
+            width: 80%;
+            margin-top: 10px;
+        }
+        #valorDolor {
+            font-size: 22px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-left: 15px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #219653;
+        }
+    </style>
+</head>
+<body>
+
+<form action="#" method="post">
+    <h2>📋 Encuesta de Salud</h2>
+
+    <!-- 1. INPUT NUMBER CON RANGOS -->
+    <div class="campo">
+        <label for="edad">Edad:</label>
+        <input type="number" id="edad" name="edad" min="0" max="120" required placeholder="Ingresa tu edad">
+    </div>
+
+    <div class="campo">
+        <label for="peso">Peso (kg):</label>
+        <input type="number" id="peso" name="peso" min="1" max="300" step="0.1" required placeholder="Ej: 75.5">
+    </div>
+
+    <div class="campo">
+        <label for="estatura">Estatura (cm):</label>
+        <input type="number" id="estatura" name="estatura" min="50" max="250" required placeholder="Ej: 175">
+    </div>
+
+    <!-- 2. INPUT RANGE PARA NIVEL DE DOLOR -->
+    <div class="campo">
+        <label>Nivel de dolor actual:</label>
+        <div style="display: flex; align-items: center;">
+            <input type="range" id="dolor" name="dolor" min="0" max="10" value="0" oninput="actualizarValor(this.value)">
+            <span id="valorDolor">0</span>
+        </div>
+        <small style="color: #7f8c8d;">(0 = Sin dolor, 10 = Dolor máximo)</small>
+    </div>
+
+    <!-- 3. SELECT PARA TIPO DE SANGRE -->
+    <div class="campo">
+        <label for="sangre">Tipo de sangre:</label>
+        <select id="sangre" name="sangre" required>
+            <option value="">Selecciona una opción</option>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+        </select>
+    </div>
+
+    <button type="submit">Enviar Encuesta</button>
+</form>
+
+<script>
+    // Función para mostrar el número mientras mueves la barra
+    function actualizarValor(valor) {
+        document.getElementById('valorDolor').textContent = valor;
+    }
+</script>
+
+</body>
+</html>

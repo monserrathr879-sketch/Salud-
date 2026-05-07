@@ -75,14 +75,26 @@
         button:hover {
             background-color: #219653;
         }
+
+        /* ✅ ESTILO PARA LA FRASE MOTIVACIONAL */
+        #frase {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-left: 5px solid #27ae60;
+            border-radius: 8px;
+            font-style: italic;
+            color: #2e7d32;
+            text-align: center;
+            display: none; /* Oculta al principio */
+        }
     </style>
 </head>
 <body>
 
-<form action="#" method="post">
+<form id="formSalud" action="#" method="post">
     <h2>📋 Encuesta de Salud</h2>
 
-    <!-- 1. INPUT NUMBER CON RANGOS -->
     <div class="campo">
         <label for="edad">Edad:</label>
         <input type="number" id="edad" name="edad" min="0" max="120" required placeholder="Ingresa tu edad">
@@ -98,7 +110,6 @@
         <input type="number" id="estatura" name="estatura" min="50" max="250" required placeholder="Ej: 175">
     </div>
 
-    <!-- 2. INPUT RANGE PARA NIVEL DE DOLOR -->
     <div class="campo">
         <label>Nivel de dolor actual:</label>
         <div style="display: flex; align-items: center;">
@@ -108,7 +119,6 @@
         <small style="color: #7f8c8d;">(0 = Sin dolor, 10 = Dolor máximo)</small>
     </div>
 
-    <!-- 3. SELECT PARA TIPO DE SANGRE -->
     <div class="campo">
         <label for="sangre">Tipo de sangre:</label>
         <select id="sangre" name="sangre" required>
@@ -125,13 +135,40 @@
     </div>
 
     <button type="submit">Enviar Encuesta</button>
+
+    <!-- ✅ AQUÍ APARECERÁ LA FRASE -->
+    <div id="frase"></div>
+
 </form>
 
 <script>
-    // Función para mostrar el número mientras mueves la barra
+    // Actualizar número de dolor
     function actualizarValor(valor) {
         document.getElementById('valorDolor').textContent = valor;
     }
+
+    // Lista de frases motivacionales
+    const frases = [
+        "¡Tu cuerpo es tu templo, cuídalo y ámalo siempre! 💖",
+        "La salud es lo más importante, nunca dejes de cuidarte. ✨",
+        "¡Ánimo! Cada día es una nueva oportunidad para sentirte mejor. 💪",
+        "Escucha a tu cuerpo, él sabe lo que necesita. 🧘‍♂️",
+        "¡Eres más fuerte de lo que crees y capaz de todo! 🚀",
+        "El cuidado personal no es un gasto, es la mejor inversión. 🌱",
+        "Sonríe, tu salud te lo agradecerá y tu vida mejorará. 😊"
+    ];
+
+    // Acción al enviar el formulario
+    document.getElementById('formSalud').addEventListener('submit', function(e) {
+        e.preventDefault(); // Evita que la página se recargue
+
+        // Elige una frase al azar
+        const indice = Math.floor(Math.random() * frases.length);
+        const elementoFrase = document.getElementById('frase');
+        
+        elementoFrase.textContent = frases[indice];
+        elementoFrase.style.display = "block"; // Muestra la frase
+    });
 </script>
 
 </body>

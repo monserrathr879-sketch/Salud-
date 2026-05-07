@@ -7,86 +7,112 @@
     <style>
         * {
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background-color: #f0f8ff;
+            background: linear-gradient(135deg, #6dd5ed, #2193b0); /* Fondo degradado bonito */
             display: flex;
             justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             padding: 20px;
+            margin: 0;
         }
         form {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            background: #ffffff;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             width: 100%;
             max-width: 500px;
         }
         h2 {
             text-align: center;
-            color: #2c3e50;
-            margin-bottom: 25px;
+            color: #1a5276;
+            margin-bottom: 30px;
+            font-size: 24px;
+            font-weight: 600;
         }
         .campo {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         label {
             display: block;
             margin-bottom: 8px;
-            font-weight: bold;
+            font-weight: 500;
             color: #34495e;
+            font-size: 15px;
         }
         input[type="number"],
         select {
             width: 100%;
-            padding: 10px;
-            border: 2px solid #bdc3c7;
-            border-radius: 8px;
+            padding: 12px 15px;
+            border: 2px solid #d0e8f2;
+            border-radius: 12px;
             font-size: 16px;
+            background-color: #f8fcff;
+            transition: border-color 0.3s;
         }
         input[type="number"]:focus,
         select:focus {
-            border-color: #3498db;
+            border-color: #2193b0;
             outline: none;
+            background-color: #fff;
         }
         /* Estilo para la barra de dolor */
+        .rango-container {
+            display: flex;
+            align-items: center;
+            background: #f0f8ff;
+            padding: 10px;
+            border-radius: 12px;
+        }
         input[type="range"] {
-            width: 80%;
-            margin-top: 10px;
+            flex-grow: 1;
+            height: 8px;
+            accent-color: #2193b0;
         }
         #valorDolor {
-            font-size: 22px;
+            min-width: 40px;
+            text-align: center;
+            font-size: 24px;
             font-weight: bold;
             color: #e74c3c;
             margin-left: 15px;
+            background: white;
+            padding: 5px 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         button {
             width: 100%;
-            padding: 12px;
-            background-color: #27ae60;
+            padding: 15px;
+            background: linear-gradient(to right, #2193b0, #6dd5ed);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-size: 18px;
+            font-weight: bold;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
         button:hover {
-            background-color: #219653;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(33, 147, 176, 0.4);
         }
 
-        /* ✅ ESTILO PARA LA FRASE MOTIVACIONAL */
+        /* ESTILO PARA LA FRASE MOTIVACIONAL */
         #frase {
             margin-top: 20px;
-            padding: 15px;
-            background-color: #e8f5e9;
-            border-left: 5px solid #27ae60;
-            border-radius: 8px;
+            padding: 18px;
+            background: linear-gradient(to right, #d4fc79, #96e6a1);
+            border-radius: 12px;
             font-style: italic;
-            color: #2e7d32;
+            color: #1e7e34;
             text-align: center;
-            display: none; /* Oculta al principio */
+            display: none;
+            font-weight: 500;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
         }
     </style>
 </head>
@@ -112,11 +138,11 @@
 
     <div class="campo">
         <label>Nivel de dolor actual:</label>
-        <div style="display: flex; align-items: center;">
+        <div class="rango-container">
             <input type="range" id="dolor" name="dolor" min="0" max="10" value="0" oninput="actualizarValor(this.value)">
             <span id="valorDolor">0</span>
         </div>
-        <small style="color: #7f8c8d;">(0 = Sin dolor, 10 = Dolor máximo)</small>
+        <small style="color: #7f8c8d; margin-top: 5px; display: block;">(0 = Sin dolor, 10 = Dolor máximo)</small>
     </div>
 
     <div class="campo">
@@ -136,18 +162,15 @@
 
     <button type="submit">Enviar Encuesta</button>
 
-    <!-- ✅ AQUÍ APARECERÁ LA FRASE -->
     <div id="frase"></div>
 
 </form>
 
 <script>
-    // Actualizar número de dolor
     function actualizarValor(valor) {
         document.getElementById('valorDolor').textContent = valor;
     }
 
-    // Lista de frases motivacionales
     const frases = [
         "¡Tu cuerpo es tu templo, cuídalo y ámalo siempre! 💖",
         "La salud es lo más importante, nunca dejes de cuidarte. ✨",
@@ -158,16 +181,12 @@
         "Sonríe, tu salud te lo agradecerá y tu vida mejorará. 😊"
     ];
 
-    // Acción al enviar el formulario
     document.getElementById('formSalud').addEventListener('submit', function(e) {
-        e.preventDefault(); // Evita que la página se recargue
-
-        // Elige una frase al azar
+        e.preventDefault();
         const indice = Math.floor(Math.random() * frases.length);
         const elementoFrase = document.getElementById('frase');
-        
         elementoFrase.textContent = frases[indice];
-        elementoFrase.style.display = "block"; // Muestra la frase
+        elementoFrase.style.display = "block";
     });
 </script>
 
